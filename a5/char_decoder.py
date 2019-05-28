@@ -103,8 +103,8 @@ class CharDecoder(nn.Module):
         decodedWords = [self.target_vocab.id2char[char.item()] for char in current_char[0]]
         counts = [max_length]*batch_size
         for t in range(max_length):
-        	st = self.forward(current_char,dec_hidden = curstates)
-        	p_t = torch.squeeze(st[0],0)
+        	s_t,curstates = self.forward(current_char, curstates)
+        	p_t = torch.squeeze(s_t,0)
         	#p_t = self.softmax(p_t)
         	current_char = torch.argmax(p_t,1)
         	for i, guess in enumerate(current_char):
