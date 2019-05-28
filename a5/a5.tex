@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\usepackage{amsmath, amstext}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+\section*{(1)}
+\subsection*{(a)}
+It is because the characters themselves don't hold much information, so a lower diemension is fine. However, if they are composed in a certain way, they do contain more information.
+\subsection*{(b)}
+word-based lookup embedding:
+\begin{align*}
+\text{Number of Paramters} = V_\text{word}e_\text{word}
+\end{align*}
+character-based embedding:
+\begin{align*}
+\text{Number of Paramters} = V_\text{character}e_\text{word}+ke_\text{word}
+\end{align*}
+\subsection*{(c)}
+One advantage of using convolution nets over RNN is the ability for feature recognition. Since you are using filters to determine features in a space, it should be able to pick up on parts of words. As opposed to the rnn which would struggle with determining the features.
+\subsection*{(d)}
+One advantage of Max pooling is that it is able to determine the features with the most effeciency. It is only taking the window that correlates most with the filter. One advantage of Average pooling is that all the information from the previous layer is still there, so no information is lost.
+\end{document}
