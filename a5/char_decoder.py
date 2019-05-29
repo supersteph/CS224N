@@ -100,20 +100,20 @@ class CharDecoder(nn.Module):
         batch_size = initialStates[0].size()[1]
         current_char = torch.tensor([1,batch_size],device=device)
         current_char = current_char.new_full((1,batch_size),self.target_vocab.start_of_word)
-        decodedWords = [self.target_vocab.id2char[char.item()] for char in current_char[0]]
+        decodeTuple = [["", False] for _ in range(batch_size)]
         counts = [max_length]*batch_size
         for t in range(max_length):
         	s_t,curstates = self.forward(current_char, curstates)
         	p_t = torch.squeeze(s_t,0)
-        	#p_t = self.softmax(p_t)
         	current_char = torch.argmax(p_t,1)
         	for i, guess in enumerate(current_char):
-        		decodedWords[i] = decodedWords[i]+self.target_vocab.id2char[guess.item()]
-        		if guess == self.target_vocab.end_of_word:
-        			counts[i] = t
+        		if not decodeTuple[i][1]:
+        			if guess!=self.target_vocab.end_of_word:
+        				decodeTuple[i][0] += self.target_vocab.id2char[guess.item()]
+        			else:
+        				decodeTuple[i][1] = True
         	current_char = torch.unsqueeze(current_char,0)
-        for i,word in enumerate(decodedWords):
-        	decodedWords[i] = word[1:1+counts[i]]
+        decodedWords = [i[0]for i in decodeTuple]
         return decodedWords
         ### END YOUR CODE
 

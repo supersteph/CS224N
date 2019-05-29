@@ -54,7 +54,7 @@ def pad_sents_char(sents, char_pad_token):
             elif len(word)<max_word_length:
                 newsent.append(word+[char_pad_token for _ in range(max_word_length-len(word))])
             else:
-                newsent.append[word]
+                newsent.append(word)
         for _ in range(curmax-len(sent)):
             newsent.append([char_pad_token for _ in range(max_word_length)])
         sents_padded.append(newsent)
