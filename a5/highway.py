@@ -19,6 +19,6 @@ class Highway(nn.Module):
     def forward(self, x_conv):
         x_proj = self.relu(self.projection(x_conv))
         x_gate = self.sigmoid(self.gate(x_conv))
-        return x_proj*x_gate+(torch.ones(self.embed_size)-x_gate)*x_conv
+        return x_proj*x_gate+(1-x_gate)*x_conv
 ### END YOUR CODE 
 
